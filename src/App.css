@@ -9,3 +9,10 @@
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
 }
+
+.content {
+  grid-area: content;
+  background-color: #3498DB;
+  display: grid;
+  grid-gap: 10px;
+}
