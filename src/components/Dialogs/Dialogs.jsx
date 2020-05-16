@@ -5,8 +5,8 @@ import Message from "./Message/Message";
 
 const Dialogs = props => {
 
-    let dialogsElements = props.state.comrades.map((c) => <Dialog name={c.name} id={c.id}/>);
-    let messagesElements = props.state.dialogs[0].messages.map((m) => <Message message={m.message} id={m.id}/>);
+    let dialogsElements = props.state.friends.map((f) => <Dialog name={f.name} id={f.id}/>);
+    let messagesElements = props.state.messages.map((m) => <Message message={m.message} id={m.id}/>);
 
     return (
         <div className={s.dialogs}>
