@@ -1,7 +1,5 @@
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
-const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
-const SEND_MESSAGE = 'SEND_MESSAGE';
+import profileReducer from "./reducers/profile-reducer";
+import dialogsReducer from "./reducers/dialogs-reducer";
 
 let store = {
     _state: {
@@ -31,8 +29,8 @@ let store = {
                 {id: 3, message: 'What is your problem?'},
             ],
             newMessageText: '',
-
         },
+        sidebar: {},
     },
 
     _subscriber() {
@@ -48,50 +46,44 @@ let store = {
 
     dispatch(action) {
 
-        if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.value;
-            this._subscriber();
-        }
-        else if (action.type === ADD_POST) {
-            this._state.profilePage.posts.push({
-                id: this._state.profilePage.posts.length + 1,
-                person: 'man',
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            });
-            this._state.profilePage.newPostText = '';
-            this._subscriber();
-        }
-        else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.value;
-            this._subscriber();
-        }
-        else if (action.type === SEND_MESSAGE) {
-            this._state.dialogsPage.messages.push({
-                id: this._state.dialogsPage.messages.length + 1,
-                message: this._state.dialogsPage.newMessageText,
-            });
-            this._state.dialogsPage.newMessageText = '';
-            this._subscriber();
-        }
+        // if (action.type === UPDATE_NEW_POST_TEXT) {
+        //     this._state.profilePage.newPostText = action.text;
+        //     this._subscriber();
+        // }
+        // else if (action.type === ADD_POST) {
+        //     this._state.profilePage.posts.push({
+        //         id: this._state.profilePage.posts.length + 1,
+        //         person: 'man',
+        //         message: this._state.profilePage.newPostText,
+        //         likesCount: 0
+        //     });
+        //     this._state.profilePage.newPostText = '';
+        //     this._subscriber();
+        // }
+        // else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+        //     this._state.dialogsPage.newMessageText = action.text;
+        //     this._subscriber();
+        // }
+        // else if (action.type === SEND_MESSAGE) {
+        //     this._state.dialogsPage.messages.push({
+        //         id: this._state.dialogsPage.messages.length + 1,
+        //         message: this._state.dialogsPage.newMessageText,
+        //     });
+        //     this._state.dialogsPage.newMessageText = '';
+        //     this._subscriber();
+        // }
 
+        profileReducer(this._state.profilePage, action);
+        dialogsReducer(this._state.dialogsPage, action);
+
+        this._subscriber();
     },
 
 };
 
-export const updateNewPostTextActionCreator = (e) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    value: e.currentTarget.value
-});
 
-export const addPostActionCreator = () => ({type: ADD_POST});
 
-export const updateNewMessageTextActionCreator = (e) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    value: e.currentTarget.value
-});
 
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE});
 
 
 

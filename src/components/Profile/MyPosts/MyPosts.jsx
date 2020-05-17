@@ -1,22 +1,26 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/store";
+import {addPostCreator, updateNewPostTextCreator} from "../../../redux/reducers/profile-reducer";
 
 
 const MyPosts = props => {
 
-    let onChangePostText = (e) => {
-        props.dispatch(updateNewPostTextActionCreator(e))
+    let postsElements = props.posts.map(p => (<Post person={p.person} message={p.message} like={p.likesCount}/>));
+    let newPostText = props.newPostText;
+
+    let onNewPostTextChange = (e) => {
+        let newText = e.target.value;
+        props.dispatch(updateNewPostTextCreator(newText))
     };
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator());
+    let onAddPostClick = () => {
+        props.dispatch(addPostCreator());
     };
 
-    let onKeyPress = (e) => {
-        if(e.key === 'Enter') {
-            addPost();
+    let onKeyPressEnter = (e) => {
+        if (e.key === 'Enter') {
+            onAddPostClick();
         }
     };
 
@@ -26,29 +30,21 @@ const MyPosts = props => {
                 <h3>My posts</h3>
                 <div>
                     <textarea
-                        onKeyPress={onKeyPress}
-                        onChange={onChangePostText}
-                        name="newPostText"
-                        id="newPostText"
-                        cols="30"
-                        rows="10"
-                        value={props.newPostText}
+                        onKeyPress={onKeyPressEnter}
+                        onChange={onNewPostTextChange}
+                        value={newPostText}
                     />
                 </div>
                 <div>
                     <button
                         className={s.sendButton}
-                        onClick={addPost}
+                        onClick={onAddPostClick}
                     > Send
                     </button>
                 </div>
             </div>
             <div className={s.posts}>
-                {props.posts.map(
-                    post => <Post person={post.person}
-                               message={post.message}
-                               like={post.likesCount}/>)
-                }
+                {postsElements}
             </div>
         </div>
     );
