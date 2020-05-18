@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import store from './redux/store'
+import store from './redux/redux-store'
 import renderApp from './redux/renderApp'
 
 store.subscribe(() => {

@@ -1,6 +1,17 @@
 import {ADD_POST, UPDATE_NEW_POST_TEXT} from "../typesOfActions/typeOfActions";
 
-const profileReducer = (state, action) => {
+let initialState = {
+    posts: [
+        {id: 1, person: 'man', message: 'Hey, why nobody loves me?', likesCount: 1},
+        {id: 2, person: 'woman', message: 'Hey, why nobody loves me?', likesCount: 17},
+        {id: 3, person: 'man', message: 'Hey, why nobody loves me?', likesCount: 11},
+        {id: 4, person: 'woman', message: 'Hey, why nobody loves me?', likesCount: 3},
+        {id: 5, person: 'woman', message: 'Hey, why nobody loves me?', likesCount: 14},
+    ],
+    newPostText: '',
+};
+
+const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
