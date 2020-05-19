@@ -1,21 +1,19 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {addPostCreator, updateNewPostTextCreator} from "../../../redux/reducers/profile-reducer";
-
 
 const MyPosts = props => {
 
     let postsElements = props.posts.map(p => (<Post person={p.person} message={p.message} like={p.likesCount}/>));
     let newPostText = props.newPostText;
 
-    let onNewPostTextChange = (e) => {
+    let onPostTextChange = (e) => {
         let newText = e.target.value;
-        props.dispatch(updateNewPostTextCreator(newText))
+        props.updatePostText(newText)
     };
 
     let onAddPostClick = () => {
-        props.dispatch(addPostCreator());
+        props.addPost();
     };
 
     let onKeyPressEnter = (e) => {
@@ -31,7 +29,7 @@ const MyPosts = props => {
                 <div>
                     <textarea
                         onKeyPress={onKeyPressEnter}
-                        onChange={onNewPostTextChange}
+                        onChange={onPostTextChange}
                         value={newPostText}
                     />
                 </div>

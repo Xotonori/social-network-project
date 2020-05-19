@@ -2,21 +2,20 @@ import React from 'react'
 import s from './Dialogs.module.css'
 import Friend from "./Friend/Friend";
 import Message from "./Message/Message";
-import {updateNewMessageTextCreator, sendMessageCreator} from "../../redux/reducers/dialogs-reducer";
 
 const Dialogs = props => {
 
-    let friendsElements = props.dialogsPage.friends.map((f) => <Friend name={f.name} id={f.id}/>);
-    let messagesElements = props.dialogsPage.messages.map((m) => <Message message={m.message} id={m.id}/>);
-    let newMessageText = props.dialogsPage.newMessageText;
+    let friendsElements = props.friends.map((f) => <Friend name={f.name} id={f.id}/>);
+    let messagesElements = props.messages.map((m) => <Message message={m.message} id={m.id}/>);
+    let newMessageText = props.newMessageText;
 
-    let onNewMessageTextChange = (e) => {
+    let onMessageTextChange = (e) => {
         let newText = e.target.value;
-        props.dispatch(updateNewMessageTextCreator(newText))
+        props.updateMessageText(newText)
     };
 
     let onSendMessageClick = () => {
-        props.dispatch(sendMessageCreator());
+        props.sendMessage();
     };
 
     let onKeyPressEnter = (e) => {
@@ -37,7 +36,7 @@ const Dialogs = props => {
                         <textarea
                             placeholder={'Enter your message'}
                             onKeyPress={onKeyPressEnter}
-                            onChange={onNewMessageTextChange}
+                            onChange={onMessageTextChange}
                             value={newMessageText}
                         />
                     </div>
