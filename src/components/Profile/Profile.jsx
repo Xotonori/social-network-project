@@ -8,7 +8,7 @@ const Profile = props => {
     return (
         <React.Fragment>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store} />
+            <MyPostsContainer />
         </React.Fragment>
     );
 };

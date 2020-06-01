@@ -1,4 +1,5 @@
-import {SEND_MESSAGE, UPDATE_NEW_MESSAGE_TEXT} from "../typesOfActions/typeOfActions";
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
+const SEND_MESSAGE = 'SEND_MESSAGE';
 
 let initialState = {
     friends: [
@@ -22,17 +23,25 @@ const dialogsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.text;
-            return state;
+        case UPDATE_NEW_MESSAGE_TEXT: {
+            return {
+                ...state,
+                newMessageText: action.text
+            };
+        }
 
-        case SEND_MESSAGE:
-            state.messages.push({
-                id: state.messages.length + 1,
-                message: state.newMessageText,
-            });
-            state.newMessageText = '';
-            return state;
+        case SEND_MESSAGE: {
+            return {
+                ...state,
+                messages: [...state.messages,
+                    {
+                        id: state.messages.length + 1,
+                        message: state.newMessageText,
+                    },
+                ],
+                newMessageText: ''
+            };
+        }
 
         default:
             return state;

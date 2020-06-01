@@ -5,9 +5,9 @@ import Message from "./Message/Message";
 
 const Dialogs = props => {
 
-    let friendsElements = props.friends.map((f) => <Friend name={f.name} id={f.id}/>);
-    let messagesElements = props.messages.map((m) => <Message message={m.message} id={m.id}/>);
-    let newMessageText = props.newMessageText;
+    let friendsElements = props.dialogsPage.friends.map((f) => <Friend name={f.name} id={f.id}/>);
+    let messagesElements = props.dialogsPage.messages.map((m) => <Message message={m.message} id={m.id}/>);
+    let newMessageText = props.dialogsPage.newMessageText;
 
     let onMessageTextChange = (e) => {
         let newText = e.target.value;
