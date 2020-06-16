@@ -1,10 +1,18 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_TOTAL_COUNT_USERS = 'SET_TOTAL_COUNT_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_LOADING_PAGE_TRUE = 'SET_LOADING_PAGE_TRUE';
+const SET_LOADING_PAGE_FALSE = 'SET_LOADING_PAGE_FALSE';
+const IS_TOGGLE_FETCHING = 'IS_TOGGLE_FETCHING';
 
 let initialState = {
-    users: []
-    // amountUsers: 4,
+    users: [],
+    pageSize: 20,
+    totalCountUsers: 0,
+    currentPage: 1,
+    isFetching: true
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -40,7 +48,28 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS: {
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users]
+            }
+        }
+
+        case SET_TOTAL_COUNT_USERS: {
+            return {
+                ...state,
+                totalCountUsers: action.count
+            }
+        }
+
+        case SET_CURRENT_PAGE: {
+            return {
+                ...state,
+                currentPage: action.page
+            }
+        }
+
+        case IS_TOGGLE_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.isFetching
             }
         }
 
@@ -49,8 +78,11 @@ const usersReducer = (state = initialState, action) => {
     }
 };
 
-export const followAC = (userId) => ({type: FOLLOW, userId});
-export const unfollowAC = (userId) => ({type: UNFOLLOW, userId});
-export const setUsersAC = (users) => ({type: SET_USERS, users});
+export const follow = (userId) => ({type: FOLLOW, userId});
+export const unfollow = (userId) => ({type: UNFOLLOW, userId});
+export const setUsers = (users) => ({type: SET_USERS, users});
+export const setTotalCountUsers = (count) => ({type: SET_TOTAL_COUNT_USERS, count});
+export const setCurrentPage = (page) => ({type: SET_CURRENT_PAGE, page});
+export const isToggleFetching = (isFetching) => ({type: IS_TOGGLE_FETCHING, isFetching});
 
 export default usersReducer;

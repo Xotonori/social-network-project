@@ -1,0 +1,69 @@
+.Users {
+    display: grid;
+    margin: 10px;
+    grid-gap: 10px;
+    color: #fff;
+
+    .pagination {
+        display: flex;
+        flex-wrap: wrap;
+
+        .pageNumber {
+            margin: 2px;
+            cursor: pointer;
+        }
+
+        .selectedPage {
+            font-weight: bold;
+        }
+    }
+
+    .user {
+        display: grid;
+        grid-template-columns: 120px 8fr;
+        grid-gap: 10px;
+
+        .subscribe {
+            background-color: #34495E;
+
+            .imgWrapper {
+                height: 100px;
+                margin: 10px;
+                border-radius: 50%;
+                overflow: hidden;
+
+                img {
+                    height: 100%;
+                }
+            }
+        }
+
+        .userData {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background-color: #34495E;
+
+            &>div {
+                display: grid;
+            }
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

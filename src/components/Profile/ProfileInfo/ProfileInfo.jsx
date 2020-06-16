@@ -1,12 +1,14 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
+import contentImg from '../../../assets/img/ProfileInfo/img/content-img.jpg';
+import photoImg from '../../../assets/img/ProfileInfo/img/photo.jpg';
 
 const ProfileInfo = () => {
     return (
         <React.Fragment>
-            <img src={require('./img/content-img.jpg')} alt="" className={s.mainImage}/>
+            <img src={contentImg} alt="" className={s.mainImage}/>
             <div className={s.profile}>
-                <img src={require('./img/photo.jpg')} alt="nature" className={s.photo}/>
+                <img src={photoImg} alt="nature" className={s.photo}/>
                 <div className={s.info}>
                     <div className={s.name}>
                         Alexey D.
