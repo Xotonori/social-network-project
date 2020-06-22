@@ -1,5 +1,5 @@
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
-const SEND_MESSAGE = 'SEND_MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'dialogsReducer/UPDATE_NEW_MESSAGE_TEXT';
+const SEND_MESSAGE = 'dialogsReducer/SEND_MESSAGE';
 
 let initialState = {
     friends: [

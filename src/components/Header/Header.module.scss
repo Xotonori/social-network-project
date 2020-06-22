@@ -1,0 +1,21 @@
+.Header {
+    grid-area: header;
+    background-color: #2C3E50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+        height: 60px;
+        margin-left: 15px;
+    }
+}
+
+.loginBlock {
+    margin-right: 20px;
+
+    a{
+        color: #fff;
+        text-decoration: none;
+    }
+}

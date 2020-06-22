@@ -1,10 +1,12 @@
 import React from 'react'
 import s from './Users.module.scss'
-import defaultUserPhoto from '../../assets/img/Users/default-user.png'
+import defaultUserPhoto from '../../assets/img/default-user.png'
 import Preloader from "../common/Preloader/Preloader";
+import {NavLink} from 'react-router-dom'
+import axios from "axios";
+import {ROOT_URL} from "../../redux/reduxStore";
 
 let Users = props => {
-
     const countPages = Math.ceil(props.totalCountUsers / props.pageSize);
     const pages = [];
     for (let i = 1; i < countPages; i++) {
@@ -13,7 +15,7 @@ let Users = props => {
 
     return (
 
-        props.isFetching ? <Preloader /> :
+        props.isFetching ? <Preloader/> :
 
             <div className={s.Users}>
                 <div className={s.pagination}>
@@ -31,12 +33,45 @@ let Users = props => {
                     <div className={s.user}>
                         <div className={s.subscribe}>
                             <div className={s.imgWrapper}>
-                                <img src={user.photos.small || defaultUserPhoto} alt="avatar"/>
+                                <NavLink to={`/profile/${user.id}`}>
+                                    <img src={user.photos.small || defaultUserPhoto} alt="avatar"/>
+                                </NavLink>
                             </div>
-                            <button
-                                onClick={user.followed ? () => props.follow(user.id) : () => props.unfollow(user.id)}>
-                                {user.followed ? 'Unfollow' : 'Follow'}
-                            </button>
+
+                            {user.followed ?
+                                <button onClick={() => {
+
+                                    axios.delete(`${ROOT_URL}/follow/${user.id}`, {
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': 'b08b218c-1bb1-4bbc-9d99-adc8b3f17984'
+                                        }
+                                    })
+                                        .then(res => {
+                                            if (res.data.resultCode === 0) {
+                                                props.unfollow(user.id)
+                                            }
+                                        })
+
+                                }}> Unfollow </button>
+                                :
+                                <button onClick={() => {
+
+                                    axios.post(`${ROOT_URL}/follow/${user.id}`, {}, {
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': 'b08b218c-1bb1-4bbc-9d99-adc8b3f17984'
+                                        }
+                                    })
+                                        .then(res => {
+                                            if (res.data.resultCode === 0) {
+                                                props.follow(user.id)
+                                            }
+                                        })
+
+                                }}> Follow </button>
+                            }
+
                         </div>
                         <div className={s.userData}>
                             <div>

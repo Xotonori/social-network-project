@@ -1,11 +1,9 @@
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_TOTAL_COUNT_USERS = 'SET_TOTAL_COUNT_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_LOADING_PAGE_TRUE = 'SET_LOADING_PAGE_TRUE';
-const SET_LOADING_PAGE_FALSE = 'SET_LOADING_PAGE_FALSE';
-const IS_TOGGLE_FETCHING = 'IS_TOGGLE_FETCHING';
+const FOLLOW = 'usersReducer/FOLLOW';
+const UNFOLLOW = 'usersReducer/UNFOLLOW';
+const SET_USERS = 'usersReducer/SET_USERS';
+const SET_TOTAL_COUNT_USERS = 'usersReducer/SET_TOTAL_COUNT_USERS';
+const SET_CURRENT_PAGE = 'usersReducer/SET_CURRENT_PAGE';
+const IS_TOGGLE_FETCHING = 'usersReducer/IS_TOGGLE_FETCHING';
 
 let initialState = {
     users: [],
@@ -24,7 +22,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(user => {
                     if (user.id === action.userId) {
-                        return {...user, followed: false};
+                        return {...user, followed: true};
                     } else {
                         return user;
                     }
@@ -37,7 +35,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(user => {
                     if (user.id === action.userId) {
-                        return {...user, followed: true};
+                        return {...user, followed: false};
                     } else {
                         return user;
                     }

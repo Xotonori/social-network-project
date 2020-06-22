@@ -8,7 +8,7 @@
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
-
+  min-height: 99vh;
 }
 
 .content {
@@ -16,4 +16,5 @@
   background-color: #BDC3C7;
   display: grid;
   grid-gap: 10px;
+  position: relative;
 }

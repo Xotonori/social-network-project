@@ -1,35 +1,37 @@
 import React from 'react';
-import s from './ProfileInfo.module.css';
+import s from './ProfileInfo.module.scss';
 import contentImg from '../../../assets/img/ProfileInfo/img/content-img.jpg';
-import photoImg from '../../../assets/img/ProfileInfo/img/photo.jpg';
+import Social from "./Social/Social";
+import defaultUserPhoto from './../../../assets/img/default-user.png'
 
-const ProfileInfo = () => {
+
+const ProfileInfo = (props) => {
+    const socialKeys = Object.keys(props.profile.contacts);
+
     return (
-        <React.Fragment>
-            <img src={contentImg} alt="" className={s.mainImage}/>
+        <>
+            <img src={contentImg} alt="nature" className={s.mainImage}/>
             <div className={s.profile}>
-                <img src={photoImg} alt="nature" className={s.photo}/>
+                <img src={props.profile.photos.large || defaultUserPhoto} alt="photo" className={s.photo}/>
                 <div className={s.info}>
                     <div className={s.name}>
-                        Alexey D.
+                        <span className={s.label}>Имя:</span>
+                        <span>{props.profile.fullName}</span>
                     </div>
                     <div className={s.data}>
-                        <div className={s.birthday}>
-                            Date of Birth: 29 january
+                        <div className={s.aboutMe}>
+                            <span className={s.label}>Обо мне:</span>
+                            <span>{!!props.profile.aboutMe ? props.profile.aboutMe : 'нет =('}</span>
                         </div>
-                        <div className={s.city}>
-                            City: Saint-Petersburg
-                        </div>
-                        <div className={s.education}>
-                            Education: SPASK'06
-                        </div>
-                        <div className={s.site}>
-                            Web site: https://it-kamasutra.com
+                        <div className={s.social}>
+                            {socialKeys.map((socialItem) => (
+                                <Social socialItem={socialItem} socialAnchor={props.profile.contacts[socialItem]}/>
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 };
 

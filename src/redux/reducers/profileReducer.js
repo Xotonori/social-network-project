@@ -1,5 +1,7 @@
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
-const ADD_POST = 'ADD_POST';
+const UPDATE_NEW_POST_TEXT = 'profileReducer/UPDATE_NEW_POST_TEXT';
+const ADD_POST = 'profileReducer/ADD_POST';
+const SET_USER_PROFILE = 'profileReducer/SET_USER_PROFILE';
+const IS_TOGGLE_FETCHING = 'profileReducer/IS_TOGGLE_FETCHING';
 
 let initialState = {
     posts: [
@@ -10,6 +12,8 @@ let initialState = {
         {id: 5, person: 'woman', message: 'Hey, why nobody loves me?', likesCount: 14},
     ],
     newPostText: '',
+    profile: null,
+    isFetching: true
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -21,6 +25,7 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: action.text
             };
         }
+
         case ADD_POST: {
             return {
                 ...state,
@@ -35,6 +40,22 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: ''
             };
         }
+
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
+            };
+        }
+
+
+        case IS_TOGGLE_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
+
         default:
             return state;
     }
@@ -46,5 +67,7 @@ export const updateNewPostTextCreator = (newText) => ({
 });
 
 export const addPostCreator = () => ({type: ADD_POST});
+export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
+export const isToggleFetching = (isFetching) => ({type: IS_TOGGLE_FETCHING, isFetching});
 
 export default profileReducer;
