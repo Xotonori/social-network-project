@@ -1,21 +1,19 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from 'react-redux'
-import axios from "axios/index";
-import {ROOT_URL} from "../../redux/reduxStore";
-import {setUserProfile, isToggleFetching} from "../../redux/reducers/profileReducer";
 import {withRouter} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
+import {getUserStatus, setUserProfile, updateUserStatus} from "../../redux/reducers/profileReducer";
+import {WithAuthRedirect} from "../hoc/WithAuthRedirect/WithAuthRedirect";
+import {compose} from "redux";
 
 
 class ProfileContainer extends React.Component {
+
     componentDidMount() {
-        this.props.isToggleFetching(true);
-        let userId = this.props.match.params.userId || '2';
-        axios.get(`${ROOT_URL}/profile/${userId}`).then(response => {
-            this.props.setUserProfile(response.data);
-            this.props.isToggleFetching(false);
-        });
+        let userId = this.props.match.params.userId || this.props.userId || '2';
+        this.props.setUserProfile(userId);
+        this.props.getUserStatus(userId);
     }
 
     render() {
@@ -27,11 +25,16 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
-    return {
-        profile: state.profilePage.profile,
-        isFetching: state.profilePage.isFetching,
-    }
-};
+const mapStateToProps = (state) => ({
+    profile: state.profilePage.profile,
+    isFetching: state.profilePage.isFetching,
+    userId: state.auth.userId,
+    isAuth: state.auth.isAuth,
+    status: state.profilePage.status,
+})
 
-export default connect(mapStateToProps, {setUserProfile, isToggleFetching})(withRouter(ProfileContainer));
+export default compose(
+    connect(mapStateToProps, {setUserProfile, getUserStatus, updateUserStatus}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer);
